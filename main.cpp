@@ -3,7 +3,7 @@
 
 int main(){
 
-	printf("ああああああ");
+	printf("ああああ");
 
 	return 0;
 }
