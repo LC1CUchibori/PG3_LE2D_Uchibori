@@ -15,6 +15,7 @@ public:
     State GetState() const; 
 
 private:
+
     State currentState_; 
     void (Enemy::*stateFunction_)(); 
 
