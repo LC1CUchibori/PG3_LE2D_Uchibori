@@ -1,37 +1,45 @@
 #include <iostream>
-#include <type_traits>
+#include <list>
 
-template <typename Type1, typename Type2>
-class TemplateClass {
-public:
-    // コンストラクタ
-    TemplateClass(Type1 number1, Type2 number2)
-        : Number1(number1), Number2(number2) {}
-
-    // Min関数: 小さい方の値を返す
-    auto Min() -> typename std::common_type<Type1, Type2>::type {
-        return (Number1 < Number2) ? Number1 : Number2;
-    }
-
-private:
-    Type1 Number1;
-    Type2 Number2;
-};
+using namespace std;
 
 int main() {
-    TemplateClass<int, float> intFloatTemplate(10, 50.0f);
-    TemplateClass<int, double> intDoubleTemplate(80, 13.0);
-    TemplateClass<float, int> floatIntTemplate(2.0f, 9);
-    TemplateClass<float, double> floatDoubleTemplate(11.0f, 3.5);
-    TemplateClass<double, int> doubleIntTemplate(666.0, 333);
-    TemplateClass<double, float> doubleFloatTemplate(435.8, 563.5f);
+    // 山手線の駅名リスト（英語表記） - 1970年
+    list<const char*> rosen1970 = {
+        "Tabata", "Nippori", "Sugamo", "Komagome"
+    };
 
-    std::cout << "int(10) と float(50.0f) を比べて小さい数字を表す：" << intFloatTemplate.Min() << std::endl;
-    std::cout << "int(80) と double(13.0) を比べて小さい数字を表す：" << intDoubleTemplate.Min() << std::endl;
-    std::cout << "float(2.0f) と int(9) を比べて小さい数字を表す：" << floatIntTemplate.Min() << std::endl;
-    std::cout << "float(11.0f) と double(3.5) を比べて小さい数字を表す：" << floatDoubleTemplate.Min() << std::endl;
-    std::cout << "double(666.0) と int(333) を比べて小さい数字を表す：" << doubleIntTemplate.Min() << std::endl;
-    std::cout << "double(435.8) と float(563.5f) を比べて小さい数字を表す：" << doubleFloatTemplate.Min() << std::endl;
+    // 西日暮里駅を追加（1971年開業）
+    auto itr1970 = rosen1970.begin();
+    advance(itr1970, 2); // 2番目の位置に挿入
+    rosen1970.insert(itr1970, "Nishi-Nippori");
+
+    // 2019年のリスト（1970年をベースに作成）
+    list<const char*> rosen2019 = rosen1970;
+
+    // 高輪ゲートウェイ駅を追加（2020年開業）
+    auto itr2019 = rosen2019.begin();
+    advance(itr2019, 4); // 4番目の位置に挿入
+    rosen2019.insert(itr2019, "Takanawa Gateway");
+
+    // 2022年のリスト（2019年をベースに作成）
+    list<const char*> rosen2022 = rosen2019;
+
+    // 各年の駅名リストを表示
+    cout << "Station list in 1970:" << endl;
+    for (auto itr = rosen1970.begin(); itr != rosen1970.end(); ++itr) {
+        cout << *itr << endl;
+    }
+
+    cout << "\nStation list in 2019:" << endl;
+    for (auto itr = rosen2019.begin(); itr != rosen2019.end(); ++itr) {
+        cout << *itr << endl;
+    }
+
+    cout << "\nStation list in 2022:" << endl;
+    for (auto itr = rosen2022.begin(); itr != rosen2022.end(); ++itr) {
+        cout << *itr << endl;
+    }
 
     return 0;
 }
