@@ -1,15 +1,15 @@
-#include "animal.h"
+#include "Animal.h"
 
 int main() {
-    Animal* myDog = new Dog(); // Dogのインスタンスを生成
-    Animal* myCat = new Cat(); // Catのインスタンスを生成
+    Animal* mouse = new Mouse(); 
+    Animal* cat = new Cat(); 
 
-    myDog->makeSound(); // "ワン! ワン!" 　　 と出力
-    myCat->makeSound(); // "ニャン! ニャン!"  と出力
+    mouse->AnimalVoice(); 
+    cat->AnimalVoice(); 
 
     // メモリ解放
-    delete myDog;
-    delete myCat;
+    delete mouse;
+    delete cat;
 
     return 0;
 }
