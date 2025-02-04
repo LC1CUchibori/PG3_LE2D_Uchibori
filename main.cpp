@@ -1,55 +1,25 @@
-#include <iostream>
+#include <stdio.h>
+#include "IShape.h"
+#include "circle.h"
+#include "rectangle.h"
 
-// 抽象クラス IShape
-class IShape {
-public:
-    virtual void Size() = 0;
-    virtual void Draw() = 0;
-    virtual ~IShape() {} // 仮想デストラクタ
-};
+int main(void) {
 
-// Circle クラス
-class Circle : public IShape {
-private:
-    float radius;
-    float size;
-public:
-    void Size() override {
-        radius = 5.0f;
-        size = radius * radius * 3.14f;
-        std::cout << "円の半径: " << radius << std::endl;
-    }
-    void Draw() override {
-        std::cout << "円の面積: " << size << std::endl;
-    }
-};
+	IShape* shape[2];
 
-// Rectangle クラス
-class Rectangle : public IShape {
-private:
-    float width;
-    float height;
-    float size;
-public:
-    void Size() override {
-        width = 10.0f;
-        height = 5.0f;
-        size = width * height;
-        std::cout << "矩形の幅: " << width << " 高さ: " << height << std::endl;
-    }
-    void Draw() override {
-        std::cout << "矩形の面積: " << size << std::endl;
-    }
-};
+	shape[0] = new circle;
+	shape[1] = new rectangle;
 
-int main() {
-    IShape* shapes[2] = { new Circle(), new Rectangle() };
+	printf("円の半径:4\n短形の底辺:2\n短形の高さ:3\n");
 
-    for (int i = 0; i < 2; ++i) {
-        shapes[i]->Size();
-        shapes[i]->Draw();
-        delete shapes[i];
-    }
+	for (int i = 0; i < 2; i++)
+		shape[i]->Size();
 
-    return 0;
+
+	printf("\n");
+
+	for (int i = 0; i < 2; i++)
+		shape[i]->Draw();
+
+	return 0;
 }
