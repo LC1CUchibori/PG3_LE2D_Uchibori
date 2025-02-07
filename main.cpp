@@ -1,25 +1,57 @@
-#include <stdio.h>
-#include "IShape.h"
-#include "circle.h"
-#include "rectangle.h"
+#include <iostream>
+#include <string>
+#include <chrono>
 
-int main(void) {
+//コピー時間計算出力
+void measureCopyTime(const std::string& str) {
 
-	IShape* shape[2];
+    //開始
+    auto start = std::chrono::high_resolution_clock::now();
 
-	shape[0] = new circle;
-	shape[1] = new rectangle;
+    //内容コピー
+    std::string copy = str;
 
-	printf("円の半径:4\n短形の底辺:2\n短形の高さ:3\n");
+    //終了
+    auto end = std::chrono::high_resolution_clock::now();
 
-	for (int i = 0; i < 2; i++)
-		shape[i]->Size();
+    //時間計算
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
 
+    //出力
+    std::cout << "コピー： " << duration << "μs" << std::endl;
+}
 
-	printf("\n");
+//移動時間計算＋出力
+void measureMoveTime(std::string&& str) {
 
-	for (int i = 0; i < 2; i++)
-		shape[i]->Draw();
+    //開始
+    auto start = std::chrono::high_resolution_clock::now();
 
-	return 0;
+    //内容移動
+    std::string moved = std::move(str);
+
+    //終了
+    auto end = std::chrono::high_resolution_clock::now();
+
+    //時間計算
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+
+    //出力
+    std::cout << "移動： " << duration << "μs" << std::endl;
+}
+
+int main() {
+
+    //文字列string with 1000,000 'a'
+    std::string a(1000000, 'a');
+
+    std::cout << "1000000文字を移動とコピーで比較" << std::endl;
+
+    //コピー
+    measureCopyTime(a);
+
+    //移動
+    measureMoveTime(std::move(a));
+
+    return 0;
 }
